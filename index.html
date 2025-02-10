@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya's photography</title>
+    <link href="https://fonts.cdnfonts.com/css/brittany-signature" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            border-radius: 8px;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #ECEFF4;
+            background-color: #2E3440;
+        }
+
+        /* Sidebar Navigation */
+        .nav-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: none;
+            border: none;
+            color: #E5E9F0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        nav {
+            background: rgba(67, 76, 94, 0.8);
+            padding: 1rem;
+            position: fixed;
+            width: 90%;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            border-radius: 15px;
+            margin: 1rem auto;
+            left: 50%;
+            transform: translateX(-50%);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 0 auto; 
+            flex-grow: 1;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+
+        nav ul li a {
+            color: #E5E9F0;
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: color 0.3s;
+            font-family: 'VT323', monospace;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul li a:hover {
+            color: #88C0D0;
+        }
+
+        .contact-btn {
+            background: rgba(46, 52, 64, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-right: auto;
+            margin-left: 1rem;
+        }
+
+        .contact-btn a {
+            color: #E5E9F0 !important;
+            font-family: 'VT323', monospace;
+            text-decoration: none;
+        }
+
+        .contact-btn:hover {
+            background: rgba(46, 52, 64, 1);
+        }
+
+        /* Contact Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(67, 76, 94, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal h2 {
+            color: #88C0D0;
+            font-family: 'VT323', monospace;
+            margin-bottom: 1rem;
+        }
+
+        .modal p {
+            color: #E5E9F0;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #E5E9F0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #88C0D0;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(46, 52, 64, 0.7), rgba(46, 52, 64, 0.7)),
+                        url('images/IMG_5592.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ECEFF4;
+            border-radius: 15px;
+            margin: 0 auto;
+            max-width: 1400px;
+            padding: 0 2rem;
+        }
+
+        .hero-content h1 {
+            font-family: 'Brittany Signature', sans-serif;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            color: #88C0D0;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #E5E9F0;
+            font-family: 'VT323', monospace;
+        }
+
+        .portfolio {
+            padding: 5rem 2rem;
+            background: #3B4252;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 1400px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 4.5rem;
+            margin-bottom: 3rem;
+            color: #88C0D0;
+            font-family: 'Brittany Signature', sans-serif;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 15px;
+            padding: 0 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(46, 52, 64, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s;
+            border-radius: 15px;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .about {
+            padding: 5rem 2rem;
+            max-width: 1000px;
+            margin: 2rem auto;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            border-radius: 15px;
+        }
+
+        .about img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            border: 3px solid #88C0D0;
+        }
+
+        .about p {
+            font-family: 'VT323', monospace;
+            font-size: 1.4rem;
+            line-height: 1.2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        footer {
+            background: #3B4252;
+            color: #E5E9F0;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            font-family: 'VT323', monospace;
+            max-width: 1400px;
+            margin: 2rem auto;
+        }
+
+        footer p {
+            font-family: 'VT323', monospace;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                height: 100vh;
+                width: 250px;
+                flex-direction: column;
+                padding: 2rem 1rem;
+                margin: 0;
+                transform: none;
+                left: auto;
+                border-radius: 0;
+            }
+
+            nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+                margin-top: 2rem;
+            }
+
+            nav ul li {
+                margin: 1rem 0;
+            }
+
+            .contact-btn {
+                margin: 1rem auto;
+            }
+
+            .theme-toggle {
+                margin: 1rem auto;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .hero, .portfolio, .about, footer {
+                margin: 1rem;
+                padding: 3rem 1rem;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="nav-toggle" onclick="toggleNav()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <nav id="navbar">
+        <div class="contact-btn">
+            <a href="#" onclick="openContactModal()">Contact Me</a>
+        </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+    </nav>
+
+    <div id="contactModal" class="modal">
+        <button class="modal-close" onclick="closeContactModal()">×</button>
+        <h2>Contact Me</h2>
+        <p>Email: adityagiri.4356@gmail.com</p>
+        <p>or DM me through Instagram</p>
+    </div>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Capturing Moments</h1>
+            <p>Self learned photographer who captures photos based on what my eyes see.</p>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+        <h2 class="section-title">Portfolio</h2>
+        <div class="gallery">
+            <iframe src="https://www.juicer.io/api/feeds/adityagiri-4356/iframe" frameborder="0" width="1000" height="1000" style="display:block;margin:0 auto;border-radius:15px;"></iframe>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <img src="images/IMG_5904.jpg" alt="Photographer Profile">
+        <h2 class="section-title">About Me</h2>
+        <p>I am a self taught photographer who has been capturing photographs ever since i have owned a camera. This is a field that i have been very passionate about in my entire life and i have dedicated a lot of time for it.</p>
+    </section>
+
+    <footer>
+        <p>2025 Photography portfolio. Made with passion.</p>
+    </footer>
+</body>
+</html>    
+<script>
+    function toggleTheme() {
+        const body = document.body;
+        if (body.classList.contains('dark-mode')) {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    function toggleNav() {
+        const navbar = document.getElementById('navbar');
+        navbar.classList.toggle('active');
+    }
+
+    window.onload = function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    }
+
+    function openContactModal() {
+        document.getElementById('contactModal').style.display = 'block';
+    }
+
+    function closeContactModal() {
+        document.getElementById('contactModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('contactModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Close navbar when clicking outside
+    document.addEventListener('click', function(event) {
+        const navbar = document.getElementById('navbar');
+        const navToggle = document.querySelector('.nav-toggle');
+        if (!navbar.contains(event.target) && !navToggle.contains(event.target)) {
+            navbar.classList.remove('active');
+        }
+    });
+
+    // Close navbar when clicking a link
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('navbar').classList.remove('active');
+        });
+    });
+</script>
+
+<style>
+    body {
+        background-color: #2E3440;
+        color: #ECEFF4;
+        transition: all 0.3s ease;
+    }
+
+    nav {
+        background: rgba(67, 76, 94, 0.8);
+    }
+
+    .about {
+        background-color: #2E3440;
+    }
+
+    body.dark-mode {
+        background-color: #3B4252;
+        color: #D8DEE9;
+    }
+
+    body.dark-mode nav {
+        background: rgba(59, 66, 82, 0.8);
+    }
+
+    body.dark-mode .section-title {
+        color: #88C0D0;
+    }
+
+    body.dark-mode .about {
+        background-color: #3B4252;
+    }
+
+    body.dark-mode footer {
+        background-color: #434C5E;
+        color: #E5E9F0;
+    }
+
+    .theme-toggle {
+        width: 60px;
+        height: 30px;
+        border-radius: 15px;
+        background-color: #81A1C1;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border: none;
+        position: relative;
+    }
+
+    .theme-toggle::before {
+        content: '';
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        top: 2px;
+        left: 2px;
+        background-color: #E5E9F0;
+        transition: transform 0.3s;
+    }
+
+    body.dark-mode .theme-toggle {
+        background-color: #5E81AC;
+    }
+
+    body.dark-mode .theme-toggle::before {
+        transform: translateX(30px);
+    }
+
+    .theme-toggle:hover {
+        background-color: #88C0D0;
+    }
+
+    body.dark-mode .theme-toggle:hover {
+        background-color: #81A1C1;
+    }
+</style>
