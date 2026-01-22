@@ -1,4 +1,4 @@
-Wanted to create a website for my photographical skills ngl haha so created this.
+Wanted to create a website for my photography to be displayed ngl haha so I created this.
 Had to learn some programming 
 if any errors are found just lemme know.
 thanks
